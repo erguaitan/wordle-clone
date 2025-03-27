@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const SwapTheme = ({ className, size = "h-10 w-10" }) => {
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+    if (inputRef.current) {
+      inputRef.current.checked = theme === "light";
+    }
   }, [theme]);
 
   const toggleTheme = () => {
@@ -14,7 +18,7 @@ const SwapTheme = ({ className, size = "h-10 w-10" }) => {
 
   return (
     <label className={`swap swap-rotate ${className}`}>
-      <input type="checkbox" onChange={toggleTheme} checked={theme === "light"} />
+      <input type="checkbox" ref={inputRef} onChange={toggleTheme} />
 
       {/* Icono de sol (modo claro) */}
       <svg

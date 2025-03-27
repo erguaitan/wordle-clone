@@ -6,11 +6,6 @@ import SwapTheme from './components/SwapTheme';
 const App = () => {
   const [solution, setSolution] = useState(null);
 
-  const currentTheme = document.documentElement.getAttribute("data-theme");
-  console.log("Theme " + currentTheme);
-  document.documentElement.setAttribute("data-theme", "dark");
-  console.log("Theme " + currentTheme);
-
   useEffect(() => {
     const solution = obtainNewSolution();
     setSolution(solution);

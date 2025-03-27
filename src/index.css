@@ -2,10 +2,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+
+
+* {
+  font-family: var(--font), Verdana, Geneva, Tahoma, sans-serif;
+  transition: all 0.3s;
+}
+
 body {
   text-align: center;
   font-size: 1em;
-  font-family: verdana;
   margin: 0;
   background-color: var(--white);
   height: 100vh;
@@ -86,17 +92,17 @@ h1 {
 .keypad > div.green {
   background: var(--green);
   color: var(--white);
-  transition: all 0.3s ease-in;
+  transition: all 0.3s;
 }
 .keypad > div.yellow {
   background: var(--yellow);
   color: var(--white);
-  transition: all 0.3s ease-in;
+  transition: all 0.3s;
 }
 .keypad > div.grey {
   background: var(--grey);
   color: var(--white);
-  transition: all 0.3s ease-in;
+  transition: all 0.3s;
 }
 .modal {
   background: var(--modal-background);

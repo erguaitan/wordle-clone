@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/src/assets/fonts/Minecrafter.Reg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Xanmono';
+  src: url('/src/assets/fonts/Xanmono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --green: #5ac85a;
   --grey: #a1a1a1;
@@ -9,6 +23,7 @@
   --dark-grey: #bbb;
   --modal-background: rgba(255, 255, 255, 0.7);
   --modal-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  --font: 'Xanmono';
 }
 
 [data-theme="dark"] {
@@ -22,4 +37,6 @@
   --dark-grey: #c4c4c4;
   --modal-background: rgba(255, 255, 255, 0.7);
   --modal-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  --font: 'Minecraft';
 }
+
