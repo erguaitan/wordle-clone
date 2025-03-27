@@ -13,6 +13,13 @@ const Wordle = ({ solution }) => {
 
     if (isCorrect || turn > 5) {
       setTimeout(() => setShowModal(true), 2000);
+      localStorage.removeItem("turn");
+      localStorage.removeItem("guesses");
+      localStorage.removeItem("history");
+      localStorage.removeItem("isCorrect");
+      localStorage.removeItem("usedKeys");
+      localStorage.removeItem("solution");
+      localStorage.removeItem("currentGuess");
       window.removeEventListener("keyup", handleKeyUp);
     }
 

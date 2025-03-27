@@ -7,7 +7,13 @@ const App = () => {
   const [solution, setSolution] = useState(null);
 
   useEffect(() => {
-    const solution = obtainNewSolution();
+    let solution;
+    if(localStorage.getItem("solution")) {
+      solution = localStorage.getItem("solution")
+    } else {
+      solution = obtainNewSolution();
+      localStorage.setItem("solution", solution);
+    }
     setSolution(solution);
   }, [setSolution])
 

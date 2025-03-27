@@ -1,12 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const useWordle = (solution) => {
-  const [turn, setTurn] = useState(0);
-  const [currentGuess, setCurrentGuesses] = useState('');
-  const [guesses, setGuesses] = useState([...Array(6)]);
-  const [history, setHistory] = useState([]);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [usedKeys, setUsedKeys] = useState({});
+  const [turn, setTurn] = useState(() => {
+    const storedTurn = localStorage.getItem("turn");
+    return storedTurn ? parseInt(storedTurn) : 0;
+  })
+  const [currentGuess, setCurrentGuesses] = useState(() => localStorage.getItem("currentGuess") || "");
+  const [guesses, setGuesses] = useState(() => {
+    const storedGuesses = localStorage.getItem("guesses");
+    return storedGuesses ? JSON.parse(storedGuesses) : Array(6).fill("");
+  });
+  const [history, setHistory] = useState(() => {
+    const storedHistory = localStorage.getItem("history");
+    return storedHistory ? storedHistory.split("-") : [];
+  });
+  const [isCorrect, setIsCorrect] = useState(() => {
+    const storedIsCorrect = localStorage.getItem("isCorrect");
+    return storedIsCorrect ? storedIsCorrect === "true" : false;
+  });
+  const [usedKeys, setUsedKeys] = useState(() => {
+    const storedUsedKeys = localStorage.getItem("usedKeys");
+    return storedUsedKeys ? JSON.parse(storedUsedKeys) : {};
+  });
+
+  useEffect(() => {
+    if (turn !== null) localStorage.setItem("turn", turn);
+    localStorage.setItem("currentGuess", currentGuess);
+    if (guesses.length > 0) localStorage.setItem("guesses", JSON.stringify(guesses));
+    if (history.length > 0) localStorage.setItem("history", history.join("-"));
+    localStorage.setItem("isCorrect", isCorrect.toString());
+    if (Object.keys(usedKeys).length > 0) localStorage.setItem("usedKeys", JSON.stringify(usedKeys));
+  }, [turn, currentGuess, guesses, history, isCorrect, usedKeys]);
+  
 
   const formatGuess = () => {
     const solutionArray = [...solution];
@@ -88,6 +113,7 @@ const useWordle = (solution) => {
       })
 
     } else if (/^[A-Za-z]$/.test(key) && currentGuess.length < 5) {
+      key = key.toLowerCase();
       setCurrentGuesses((prev) => {
         return prev + key
       })
