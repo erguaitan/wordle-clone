@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react'
-import { obtainNewSolution } from './lib/lib';
+import { obtainIndexSolution, obtainNewSolution } from './lib/lib';
 import Wordle from './components/Wordle';
 import SwapTheme from './components/SwapTheme';
 import { Toaster } from 'react-hot-toast';
@@ -10,10 +10,12 @@ const App = () => {
   useEffect(() => {
     let solution;
     if(localStorage.getItem("solution")) {
-      solution = localStorage.getItem("solution")
+      const solutionObject = obtainIndexSolution(parseInt(localStorage.getItem("solution"))); 
+      solution = solutionObject.word;
     } else {
-      solution = obtainNewSolution();
-      localStorage.setItem("solution", solution);
+      const solutionObject = obtainNewSolution();
+      localStorage.setItem("solution", solutionObject.id);
+      solution = solutionObject.word;
     }
     setSolution(solution);
   }, [setSolution])

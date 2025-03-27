@@ -2,8 +2,12 @@ import { letters, solutions } from "../constants/constants";
 
 export function obtainNewSolution () {
   const solution = solutions[Math.floor(Math.random() * solutions.length)];
-  
-  return solution.word;
+  return solution;
+}
+
+export function obtainIndexSolution (ind) {
+  const solution = solutions[ind - 1];
+  return solution;
 }
 
 export function obtainLettersKeyPad () {
