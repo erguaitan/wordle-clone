@@ -6,20 +6,19 @@ import Modal from './Modal';
 
 const Wordle = ({ solution }) => {
   const { currentGuess, handleKeyUp, guesses, isCorrect, usedKeys, turn } = useWordle(solution);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(() => {
+    if (isCorrect || turn > 5) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
 
     if (isCorrect || turn > 5) {
       setTimeout(() => setShowModal(true), 2000);
-      localStorage.removeItem("turn");
-      localStorage.removeItem("guesses");
-      localStorage.removeItem("history");
-      localStorage.removeItem("isCorrect");
-      localStorage.removeItem("usedKeys");
-      localStorage.removeItem("solution");
-      localStorage.removeItem("currentGuess");
       window.removeEventListener("keyup", handleKeyUp);
     }
 
