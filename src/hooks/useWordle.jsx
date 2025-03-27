@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(() => {
@@ -31,7 +32,7 @@ const useWordle = (solution) => {
     localStorage.setItem("isCorrect", isCorrect.toString());
     if (Object.keys(usedKeys).length > 0) localStorage.setItem("usedKeys", JSON.stringify(usedKeys));
   }, [turn, currentGuess, guesses, history, isCorrect, usedKeys]);
-  
+
 
   const formatGuess = () => {
     const solutionArray = [...solution];
@@ -93,14 +94,28 @@ const useWordle = (solution) => {
 
   const handleKeyUp = ({ key }) => {
     if (key === "Enter") {
+      let errorWhenEnter = false
+      let errorMessage = ''
       if (turn > 5) {
-        console.log("You used all your guesses");
-        return;
+        errorWhenEnter = true
+        errorMessage = "You used all your guesses";
       } else if (history.includes(currentGuess)) {
-        console.log("You already tried that word");
-        return;
+        errorWhenEnter = true
+        errorMessage = "You already tried that word";
       } else if (currentGuess.length !== 5) {
-        console.log("Word must be 5 chars long");
+        errorWhenEnter = true
+        errorMessage ="Word must be 5 chars long";
+      }
+      
+      if (errorWhenEnter) {
+        toast.error(errorMessage, {
+          className: 'custom-toast',
+          duration: 1000
+        });
+        let row = document.querySelectorAll(".row")[turn];
+        row.classList.remove("wrong");
+        void row.offsetWidth;
+        row.classList.add("wrong");
         return;
       }
 
