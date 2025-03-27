@@ -1,15 +1,11 @@
-import { letters, solutions } from "../constants/constants";
+import { solutions } from "../constants/constants";
 
-export function obtainNewSolution () {
+export function obtainNewSolution() {
   const solution = solutions[Math.floor(Math.random() * solutions.length)];
   return solution;
 }
 
-export function obtainIndexSolution (ind) {
+export function obtainIndexSolution(ind) {
   const solution = solutions[ind - 1];
   return solution;
-}
-
-export function obtainLettersKeyPad () {
-  return letters;
 }

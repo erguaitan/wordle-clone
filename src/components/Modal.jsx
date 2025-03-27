@@ -1,5 +1,5 @@
 import React from 'react'
-import RetryIcon from './RetryIcon'
+import RetryIcon from './icons/RetryIcon'
 
 const Modal = ({ isCorrect, turn, solution }) => {
 
