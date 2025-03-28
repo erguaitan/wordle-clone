@@ -8,17 +8,22 @@ const App = () => {
   const [solution, setSolution] = useState(null);
 
   useEffect(() => {
-    let solution;
-    if(localStorage.getItem("solution")) {
-      const solutionObject = obtainIndexSolution(parseInt(localStorage.getItem("solution"))); 
-      solution = solutionObject.word;
-    } else {
-      const solutionObject = obtainNewSolution();
-      localStorage.setItem("solution", solutionObject.id);
-      solution = solutionObject.word;
-    }
-    setSolution(solution);
-  }, [setSolution])
+    const fetchSolution = async () => {
+      let solution;
+      if (localStorage.getItem("solution")) {
+        const solutionObject = await obtainIndexSolution(parseInt(localStorage.getItem("solution")));
+        solution = solutionObject.word;
+      } else {
+        const solutionObject = await obtainNewSolution();
+        localStorage.setItem("solution", solutionObject.id);
+        solution = solutionObject.word;
+      }
+      setSolution(solution);
+    };
+
+    fetchSolution();
+  }, [setSolution]);
+
 
   return (
     <div className='App'>
